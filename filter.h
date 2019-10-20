@@ -40,9 +40,7 @@ namespace ipflt {
 	IP_pool filter_any(const IP_pool& ip_pool, Byte byte);
 
 	template <class...Args>
-	Range<IP_pool_cr_itr> filter_(Range<IP_pool_cr_itr>  ip_cr_range, size_t pos, Args... args) {
-		auto foo_sz = pos;
-		auto foo_ags =sizeof...(args);
+	Range<IP_pool_cr_itr> filter_(Range<IP_pool_cr_itr>  ip_cr_range, [[maybe_unused]] size_t pos, [[maybe_unused]] Args... args) {
 		return ip_cr_range;
 	}
 

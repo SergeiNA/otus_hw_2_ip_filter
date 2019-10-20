@@ -1,13 +1,6 @@
 
-#include "test_runner.h"
 #include "filter.h"
-
-#include <cassert>
-#include <cstdlib>
-
-#include <fstream>
-#include <sstream>
-
+#include <iterator>
 
 using namespace ipflt;
 
