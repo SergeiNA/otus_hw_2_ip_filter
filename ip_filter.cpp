@@ -8,8 +8,11 @@ int main(int argc, char const *argv[])
 {
     try
     {
-		auto ip_adrr_v = read_ip_addr();
-		ip_sort(ip_adrr_v);
+		const IP_pool ip_adrr_v = [](){
+			auto ip_adrr_v = read_ip_addr();
+			ip_sort(ip_adrr_v);
+			return move(ip_adrr_v);
+		};
 
 		auto ip_adrr_v_1 = filter(ip_adrr_v, 1);
 		auto ip_adrr_v_46_70 = filter(ip_adrr_v, 46, 70);
