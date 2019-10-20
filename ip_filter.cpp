@@ -4,14 +4,14 @@
 
 using namespace ipflt;
 
-int main(int argc, char const *argv[])
+int main()
 {
     try
     {
 		const IP_pool ip_adrr_v = [](){
 			auto ip_adrr_v = read_ip_addr();
 			ip_sort(ip_adrr_v);
-			return move(ip_adrr_v);
+			return ip_adrr_v;
 		}();
 
 		output(ip_adrr_v);
