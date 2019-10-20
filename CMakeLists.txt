@@ -14,7 +14,7 @@ add_library(filter_lib filter.cpp)
 
 add_executable(ip_filter_tests ip_filter_tests.cpp)
 
-set_target_properties(ip_filter_tests ip_filter_tests_lib ip_filter_tests PROPERTIES
+set_target_properties(ip_filter filter_lib ip_filter_tests PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
