@@ -41,6 +41,8 @@ namespace ipflt {
 
 	template <class...Args>
 	Range<IP_pool_cr_itr> filter_(Range<IP_pool_cr_itr>  ip_cr_range, size_t pos, Args... args) {
+		auto foo_sz = pos;
+		auto foo_ags = args;
 		return ip_cr_range;
 	}
 

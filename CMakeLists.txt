@@ -10,7 +10,7 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 add_executable(ip_filter ip_filter.cpp)
 
-add_library(filter_lib filter.cpp)
+add_library(filter_lib filter.cpp filter.h)
 
 add_executable(ip_filter_tests ip_filter_tests.cpp)
 

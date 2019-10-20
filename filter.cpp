@@ -24,7 +24,7 @@ namespace ipflt {
 	}
 
 	IP_addr get_ip_addr(IP_addr_raw ip_addr_raw) {
-		IP_addr ip_addr(4);
+		IP_addr ip_addr(IP_ADDR_SZ);
 		std::transform(begin(ip_addr_raw), end(ip_addr_raw), begin(ip_addr),
 			[](std::string s)->size_t {
 				return std::stoi(s);
