@@ -14,10 +14,10 @@ int main( [[maybe_unused]]  int argc, [[maybe_unused]]  char const* argv[])
 			return ip_adrr_v;
 		}();
 
-		std::cout << ip_adrr_v
-			<< filter(ip_adrr_v, 1)
-			<< filter(ip_adrr_v, 46, 70)
-			<< filter_any(ip_adrr_v, 46);
+		std::cout << ip_adrr_v << std::endl
+			<< filter(ip_adrr_v, 1) << std::endl
+			<< filter(ip_adrr_v, 46, 70) << std::endl
+			<< filter_any(ip_adrr_v, 46) << std::endl;
 
     }
     catch(const std::exception &e)
