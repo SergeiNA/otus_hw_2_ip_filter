@@ -88,7 +88,9 @@ namespace ipflt {
 					continue;
 				}
 				os << '.' << ip_part;
+
 			}
+			os << std::endl;
 		}
 		return os;
 	}
