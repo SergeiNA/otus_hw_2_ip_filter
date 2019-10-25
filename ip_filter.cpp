@@ -4,7 +4,7 @@
 
 using namespace ipflt;
 
-int main()
+int main( [[maybe_unused]]  int argc, [[maybe_unused]]  char const* argv[])
 {
     try
     {
@@ -14,10 +14,11 @@ int main()
 			return ip_adrr_v;
 		}();
 
-		output(ip_adrr_v);
-		output(filter(ip_adrr_v, 1));
-		output(filter(ip_adrr_v, 46, 70));
-		output(filter_any(ip_adrr_v, 46));
+		std::cout << ip_adrr_v
+			<< filter(ip_adrr_v, 1)
+			<< filter(ip_adrr_v, 46, 70)
+			<< filter_any(ip_adrr_v, 46)
+			<< std::endl;
 
     }
     catch(const std::exception &e)
