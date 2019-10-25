@@ -36,8 +36,6 @@ BOOST_AUTO_TEST_CASE(output_test)
 	IP_pool ver_ip_pool = { {1,1,0,0},  {2,2,1,0},  {3,3,3,3},  {1,0,1,0} };
 
 	oss << ver_ip_pool;
-	ASSERT_EQUAL(output_1, oss.str());
-
 	BOOST_CHECK(output_1 == oss.str());
 }
 

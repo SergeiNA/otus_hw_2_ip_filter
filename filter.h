@@ -8,9 +8,9 @@
 #include <array>
 
 namespace ipflt {
-
+	const size_t IP_ADDR_SZ = 4;
 	using Byte = unsigned short;
-	using IP_pool = std::vector<std::array<Byte, 4>>;
+	using IP_pool = std::vector<std::array<Byte, IP_ADDR_SZ>>;
 	using IP_addr = std::array<Byte, 4>;
 	using IP_addr_raw = std::vector<std::string>;
 	using IP_pool_c_itr = IP_pool::const_iterator;
@@ -69,7 +69,7 @@ namespace ipflt {
 	IP_pool filter(const IP_pool& ip_pool, Args... args) {
 		if (ip_pool.empty())
 			return {};
-		if (sizeof...(args) > ip_pool.at(0).size())
+		if (sizeof...(args) > IP_ADDR_SZ)
 			throw std::runtime_error("filter: to many args");
 
 		auto ip_range = filter_({ ip_pool.cbegin(), ip_pool.cend() }, 0, args...);

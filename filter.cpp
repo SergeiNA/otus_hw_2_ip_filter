@@ -2,7 +2,7 @@
 
 
 namespace ipflt {
-	const size_t IP_ADDR_SZ = 4;
+
 
 	IP_addr_raw split(const std::string& str, char d)
 	{
