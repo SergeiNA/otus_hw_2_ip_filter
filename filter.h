@@ -9,9 +9,9 @@
 
 namespace ipflt {
 	const size_t IP_ADDR_SZ = 4;
-	using Byte = unsigned short;
-	using IP_pool = std::vector<std::array<Byte, IP_ADDR_SZ>>;
-	using IP_addr = std::array<Byte, 4>;
+	using Byte = std::uint16_t;
+	using IP_addr = std::array<Byte, IP_ADDR_SZ>;
+	using IP_pool = std::vector<IP_addr>;
 	using IP_addr_raw = std::vector<std::string>;
 	using IP_pool_c_itr = IP_pool::const_iterator;
 
@@ -44,40 +44,35 @@ namespace ipflt {
 
 	IP_pool filter_any(const IP_pool& ip_pool, Byte byte);
 
-	template <class...Args>
-	Range<IP_pool_c_itr> filter_(Range<IP_pool_c_itr>  ip_range,
-		[[maybe_unused]] size_t pos, [[maybe_unused]] Args... args) {
-		return ip_range;
+	template<typename... Args>
+	void setBoundary(IP_addr& lb, Args... args) {
+		size_t i = 0;
+		(void(lb[i++] = args), ...);
 	}
 
-
-	template <class Head, class...Args>
-
-	Range<IP_pool_c_itr> filter_(Range<IP_pool_c_itr>  ip_range, size_t pos, Head b, Args... args) {
-
-		auto new_ip_rbegin = std::lower_bound(begin(ip_range), end(ip_range), b,
-			[&pos](const IP_addr& ip_addr, Byte val) {return ip_addr.at(pos) > val; });
-
-		auto new_ip_rend = std::upper_bound(new_ip_rbegin, end(ip_range), b,
-			[&pos](Byte val, const IP_addr& ip_addr) {return val > ip_addr.at(pos); });
-
-		return filter_({ new_ip_rbegin, new_ip_rend }, ++pos, args...);
-	}
-
-
-	template <class...Args>
+	template<typename... Args>
 	IP_pool filter(const IP_pool& ip_pool, Args... args) {
 		if (ip_pool.empty())
 			return {};
-		if (sizeof...(args) > IP_ADDR_SZ)
+		auto arg_sz = sizeof...(args);
+		if (arg_sz > IP_ADDR_SZ)
 			throw std::runtime_error("filter: to many args");
 
-		auto ip_range = filter_({ ip_pool.cbegin(), ip_pool.cend() }, 0, args...);
-		return { ip_range.begin(), ip_range.end() };
+		IP_addr lb_addr{ 255,255,255,255 };
+		IP_addr ub_addr{ 0,0,0,0 };
+
+		setBoundary(lb_addr, args...);
+		setBoundary(ub_addr, args...);
+
+		auto lower_b = std::lower_bound(begin(ip_pool), end(ip_pool), lb_addr,
+			[](const IP_addr& ip_addr, const IP_addr& val) {return ip_addr > val; });
+
+		auto upper_b = std::upper_bound(lower_b, end(ip_pool), ub_addr,
+			[](const IP_addr& val, const IP_addr& ip_addr) {return val > ip_addr; });
+
+		return { lower_b ,upper_b };
 
 	}
-
-
 
 
 }

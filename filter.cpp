@@ -102,7 +102,7 @@ namespace ipflt {
 		IP_pool result;
 		std::copy_if(begin(ip_pool), end(ip_pool), std::back_inserter(result),
 			[&byte](const IP_addr& ip_addr) {
-				return std::count(begin(ip_addr), end(ip_addr), byte) > 0;
+				return find(begin(ip_addr), end(ip_addr), byte) != end(ip_addr);
 			});
 		return result;
 	}
